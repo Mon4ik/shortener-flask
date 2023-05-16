@@ -1,41 +1,12 @@
-import random
+from . import app, db
+
 import string
+import random
 
-from flask import Flask, render_template, redirect, url_for
+from flask import redirect, render_template, url_for
 
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, URL
-
-from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
-
-
-class URLForm(FlaskForm):
-    url = StringField("Ссылка", validators=[
-        DataRequired(message='Поле "Ссылка" не может быть пустым'),
-        URL(message="Ссылка введена не верно")
-    ])
-    submit = SubmitField("Сократить ссылку")
-
-
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "SECRET_KEY"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///urls.db"
-
-db = SQLAlchemy(app)
-
-
-class URLS(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.Text, nullable=False)
-    short = db.Column(db.String(40), unique=True, nullable=False)
-    visits = db.Column(db.Integer, default=0)
-    date = db.Column(db.DateTime, default=datetime.utcnow())
-
-
-with app.app_context():
-    db.create_all()
+from .forms import URLForm
+from .models import URLS
 
 
 def get_short():
