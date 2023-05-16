@@ -6,17 +6,27 @@
 - Flask SQLAlchemy
 
 ## Installation
-1. Clone repo
-2. Install deps
+1. Clone repo 
+2. Creating venv
+   ```shell
+   python3 -m venv venv
+   
+   # windows
+   venv/Scripts/activate.bat
+   
+   # Unix like
+   . venv/bin/activate
+   ```
+3. Install deps
    ```shell
    pip install -r requirements.txt
    ```
-3. Setup `.env` file
+4. Setup `.env` file
    ```shell
    SECRET_KEY="SECRET_KEY"
    DATABASE_URI="sqlite3:///db.sqlite"
    ```
-4. Run project
+5. Run project
    ```shell
    flask run
    ```
